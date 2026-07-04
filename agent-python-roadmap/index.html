@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="面向零基础学习者的 56 天 Python 与 Agent 开发训练计划">
+  <title>Agent 起跑线 · 56 天训练日志</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="paper-noise" aria-hidden="true"></div>
+  <header class="hero">
+    <nav>
+      <span class="brand">PY → AGENT</span>
+      <button id="exportBtn" class="text-button">导出进度</button>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">从零开始 · 每天 90 分钟 · 56 天</p>
+        <h1>把“不会”<br>练成<span>能调试</span></h1>
+        <p class="intro">这不是收藏后再也不看的课程清单，而是一条每天都有可验收产物的训练路径。终点：独立写出、测试并解释一个小型 Agent。</p>
+      </div>
+      <section class="today-card" aria-labelledby="todayTitle">
+        <span class="pin"></span>
+        <p class="stamp">TODAY / 今日任务</p>
+        <h2 id="todayTitle">载入中…</h2>
+        <p id="todayOutcome"></p>
+        <button id="todayButton" class="primary-button">定位到今天</button>
+      </section>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard" aria-label="学习进度">
+      <div class="progress-copy">
+        <span id="progressPercent">0%</span>
+        <div>
+          <strong>总训练进度</strong>
+          <p id="progressText">0 / 56 天完成</p>
+        </div>
+      </div>
+      <div class="progress-track"><div id="progressBar"></div></div>
+      <div class="stats">
+        <div><b id="streakCount">0</b><span>连续打卡</span></div>
+        <div><b id="taskCount">0</b><span>完成任务</span></div>
+        <div><b id="minutesCount">0</b><span>投入分钟</span></div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div>
+        <label for="startDate">我的 Day 1</label>
+        <input type="date" id="startDate">
+      </div>
+      <div class="filters" aria-label="筛选计划">
+        <button class="filter active" data-filter="all">全部 56 天</button>
+        <button class="filter" data-filter="current">当前周</button>
+        <button class="filter" data-filter="pending">未完成</button>
+      </div>
+    </section>
+
+    <section id="roadmap" class="roadmap" aria-live="polite"></section>
+
+    <section class="finish-line">
+      <p>FINAL DELIVERABLE</p>
+      <h2>你的第一个可解释 Agent</h2>
+      <div class="deliverables">
+        <span>✓ 能调用 2+ 工具</span>
+        <span>✓ 有会话记忆</span>
+        <span>✓ 有 10 条评测集</span>
+        <span>✓ 有调试复盘</span>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="dayDialog">
+    <button class="dialog-close" aria-label="关闭">×</button>
+    <p id="dialogWeek" class="eyebrow"></p>
+    <h2 id="dialogTitle"></h2>
+    <p id="dialogGoal" class="dialog-goal"></p>
+    <div id="dialogTasks"></div>
+    <label class="reflection-label" for="reflection">今日复盘（哪里卡住？怎么解决？）</label>
+    <textarea id="reflection" rows="4" placeholder="哪怕只写一句，也是在训练调试思维。"></textarea>
+    <button id="saveReflection" class="primary-button">保存复盘</button>
+  </dialog>
+
+  <input type="file" id="importInput" accept=".json" hidden>
+  <footer>
+    <span>56 DAYS TO FIRST AGENT</span>
+    <div>
+      <button id="importBtn" class="text-button">导入进度</button>
+      <button id="resetBtn" class="text-button danger">重置</button>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
