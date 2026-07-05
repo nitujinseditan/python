@@ -150,3 +150,32 @@ current_user = "Lucas"
 for current_check_user in users:
     print("正在检查用户：", current_check_user)
 print("当前登录用户：", current_user)
+
+#输入校验,学习时长建议可以写成函数
+def get_valid_minutes():
+    while True:
+        try:
+            minutes = float(input("请输入今天学习的分钟数: "))
+
+            if minutes < 0:
+                print("请输入一个非负数的分钟数。")
+                continue
+
+            return minutes
+
+        except ValueError:
+            print("请输入一个数字，比如 0、30、90、45.5。")
+
+def give_study_advice(minutes):
+    if minutes >= 90:
+        print("今天学习很刻苦")
+    elif minutes >= 60:
+        print("今天学习量达标")
+    else:
+        print("今天还需要继续")
+
+minutes = get_valid_minutes#不加括号也不会报错？
+#不加括号就是不调用函数，把函数本身赋值给minutes
+print(type(minutes)) # <class 'function'>
+minutes = get_valid_minutes()
+give_study_advice(minutes)
