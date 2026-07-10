@@ -9,11 +9,22 @@ docs = [
 
 #处理问题和语料的函数
 def clean_text(text):
-    res = text.strip().lower().replace("?","").replace("？","")
-    return res
+    return (
+        text.strip()
+        .lower()
+        .replace("?", "")
+        .replace("？", "")
+        .replace("!", "")
+        .replace("！", "")
+        .replace(".", "")
+        .replace("。", "")
+        .replace(",", "")
+        .replace("，", "")
+    )
 
 #清洗语料
 corpus = []
+#这是个列表，每个元素是一个字典
 for doc in docs:
     item = {
         "raw": doc,
@@ -22,20 +33,22 @@ for doc in docs:
     corpus.append(item)
 
 #进行搜索retrieve
-def retrive(que,corpus):
+def retrieve(que,corpus):
     que = clean_text(que)
     results = []
+    keywords = ["strip", "lower", "upper", "split", "replace", "rag"]#用数据结构（列表）减少重复if
     for item in corpus:
         clean_doc = item["clean"]
-        if "split" in que and "split" in clean_doc:
-            results.append(item["raw"])
-        elif "strip" in que and "strip" in clean_doc:
-            results.append(item["raw"])
-        elif "lower" in que and "lower" in clean_doc:
-            results.append(item["raw"])
-        elif "replace" in que and "replace" in clean_doc:
-            results.append(item["raw"])
-        elif "rag" in que and "rag" in clean_doc:
-            results.append(item["raw"])
+
+        for keyword in keywords:
+            if keyword in que and keyword in clean_doc:
+                results.append(item["raw"])
+                break
 
     return results
+
+question = input("请输入问题：")
+results = retrieve(question, corpus)
+
+print("检索到的资料：")
+print(results)
