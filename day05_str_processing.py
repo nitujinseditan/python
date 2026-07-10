@@ -17,6 +17,10 @@ print(test)
 test = "!!!I LOVE!!! YOU!!!!!!"
 print(test.strip("!"))#不会去除中间的
 
+#参数是字符集
+text = "www.pythonandc.com"
+print(text.strip("w.com")) # 会理解为删除两边的w,.,c,o,m,得到pythonand
+
 #strip() 的亲戚 ：lstrip() rstrip() 处理左右
 print(test.lstrip("!"))
 print(test.rstrip("!"))
@@ -49,3 +53,41 @@ print(*new_test,sep = " ",end = "!\n")
 #strip() lower() 一起用
 yonghushuru = "  i WANT to Study Python  \n\t"
 print(yonghushuru.strip().lower())
+
+
+
+#split() : 分割字符串为列表
+print_section("split()")
+text = "   I   \tlove Python"
+words = text.split()
+
+print(words)
+
+#默认是空白字符 " " \t \n \r 自动处理多个空格
+text = "哈喽，Lucas"
+print(text.split("，"))
+text = ", , ,hello,lucas"
+print(text.split(","))#得到空白，空格，空格，hello，lucas
+
+#可以限制分割次数
+text = "I love  \t Claire but it's impossible"
+print(text.split(maxsplit=3))
+print(text.split(None,3))
+#str.split("sep",maxsplit)
+
+
+
+#中文没有空格和每个字词之间的间隔符号，怎么解决？要么用in，要么试试第三方库
+
+#replace  替换掉所有old匹配到的内容
+print_section("replace()")
+#str.replace("old","new")
+text = "Lucas loves jujube"
+print(text.replace("jujube","Claire"))
+print(text.replace("loves","misses"))
+
+#用于删除，new = ""
+
+
+
+
