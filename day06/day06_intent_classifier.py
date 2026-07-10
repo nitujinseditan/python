@@ -160,7 +160,7 @@ def main():
 
         else:
             print("输入无效，请输入 1、2、3 或 q。")
-print(__name__)
+print(__name__) #__name__ 变量：在直接执行当前文件的时候解释器解释为__main__ ,否则为文件名
 if __name__ == "__main__":
     main()
 

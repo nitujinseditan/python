@@ -71,17 +71,36 @@
 ## 文件结构
 
 ```text
-day06_intent_classifier/
-├── day06_intent_classifier.py
-├── README.md
+intent_classifier/
+├── main.py
+├── classifier.py
+├── config.py
+├── test_classifier.py
+├── intent_classifier_README.md
 └── misjudge_analysis.md
 ```
 
 文件说明：
 
-* `day06_intent_classifier.py`：程序源代码
-* `README.md`：项目说明和开发规划
+* `main.py`：菜单和交互入口
+* `classifier.py`：clean_text、contains_keyword、classify_intent 核心逻辑
+* `config.py`：关键词配置
+* `test_classifier.py`：自动测试
+* `intent_classifier_README.md`：项目说明和开发规划
 * `misjudge_analysis.md`：误判记录与复盘
+
+## 如何运行
+
+```bash
+cd intent_classifier
+python main.py
+```
+
+也可以单独运行测试：
+
+```bash
+python test_classifier.py
+```
 
 ---
 
@@ -142,6 +161,8 @@ study_keywords = [
     "讲解",
     "掌握",
     "作业",
+    "怎么学",
+    "如何学",
 ]
 ```
 
@@ -155,8 +176,10 @@ query_keywords = [
     "什么",
     "为什么",
     "多少",
+    "如何",
     "天气",
     "气温",
+    "怎么",
 ]
 ```
 
@@ -197,6 +220,10 @@ def run_tests():
     pass
 
 
+def run_interactive():
+    pass
+
+
 def main():
     pass
 ```
@@ -209,7 +236,8 @@ def main():
 | `contains_keyword()` | 判断文本中是否包含某一类关键词 |
 | `classify_intent()`  | 根据关键词和优先级返回意图类别 |
 | `run_tests()`        | 自动执行测试并统计通过率    |
-| `main()`             | 处理命令行输入、退出和空输入  |
+| `run_interactive()`  | 处理命令行输入、退出和空输入  |
+| `main()`             | 菜单路由与程序入口       |
 
 ---
 
@@ -479,7 +507,7 @@ test_cases = [
     ("你好呀", "闲聊"),
     ("如何高效复习？", "学习"),
     ("帮我查找一下资料", "查询"),
-    ("我不想学习，只想聊天", "闲聊"),
+    ("我不想学习，我只想和你聊天", "闲聊"),
 ]
 ```
 
@@ -502,7 +530,7 @@ test_cases = [
 |  3  | 你好呀         |  闲聊  | 测试社交问候      |
 |  4  | 如何高效复习？     |  学习  | 测试关键词冲突和优先级 |
 |  5  | 帮我查找一下资料    |  查询  | 测试明确查询动词    |
-|  6  | 我不想学习，只想聊天  |  闲聊  | 测试否定结构缺陷    |
+|  6  | 我不想学习，我只想和你聊天  |  闲聊  | 测试否定结构缺陷    |
 
 ---
 
@@ -519,7 +547,7 @@ test_cases = [
 测试失败时：
 
 ```text
-❌ 输入：我不想学习，只想聊天
+❌ 输入：我不想学习，我只想和你聊天
    预期：闲聊
    实际：学习
 ```
@@ -623,22 +651,25 @@ misjudge_analysis.md
 
 ## 今日交付物
 
-* [ ] 创建 `day06_intent_classifier.py`
-* [ ] 定义学习类关键词列表
-* [ ] 定义查询类关键词列表
-* [ ] 定义闲聊类关键词列表
-* [ ] 完成 `clean_text()` 函数
-* [ ] 完成 `contains_keyword()` 函数
-* [ ] 完成 `classify_intent()` 函数
-* [ ] 完成 `run_tests()` 函数
-* [ ] 完成 `main()` 函数
-* [ ] 支持空输入处理
-* [ ] 支持 `exit`、`quit` 和 `q`
-* [ ] 完成 6 条自动测试
-* [ ] 测试通过率不低于 80%
+* [x] 创建 `config.py`（关键词配置）
+* [x] 创建 `classifier.py`（clean_text、contains_keyword、classify_intent）
+* [x] 创建 `test_classifier.py`（run_tests）
+* [x] 创建 `main.py`（run_interactive、main 菜单入口）
+* [x] 定义学习类关键词列表
+* [x] 定义查询类关键词列表
+* [x] 定义闲聊类关键词列表
+* [x] 完成 `clean_text()` 函数
+* [x] 完成 `contains_keyword()` 函数
+* [x] 完成 `classify_intent()` 函数
+* [x] 完成 `run_tests()` 函数
+* [x] 完成 `main()` 函数
+* [x] 支持空输入处理
+* [x] 支持 `exit`、`quit` 和 `q`
+* [x] 完成 6 条自动测试
+* [x] 测试通过率不低于 80%（5/6，83.3%）
 * [ ] 截取终端测试结果
-* [ ] 创建 `misjudge_analysis.md`
-* [ ] 记录至少一条真实误判或潜在缺陷
+* [x] 创建 `misjudge_analysis.md`
+* [x] 记录至少一条真实误判或潜在缺陷
 
 ---
 
@@ -687,7 +718,7 @@ intent_keywords = {
 }
 ```
 
-然后使用循环检查每种意图，减少重复代码。
+然后使用循环检查每种意图，减少重复代码。（当前版本已实现。）
 
 ### Week 3：使用 JSON 保存配置
 
@@ -755,6 +786,10 @@ intent_keywords.json
 * 测试结果容易复现
 
 当规则分类无法可靠判断时，再考虑使用大语言模型作为兜底。
+
+### 后续：使用神经网络
+
+意图分类本质是一个文本分类问题，神经网络是解决这类问题的一个好方法。以后学了神经网络相关内容后，可以考虑拿这个项目来练手——用同样的测试用例，对比规则方法和模型方法的准确率差异，会是一个很有价值的对比实验。
 
 ---
 
