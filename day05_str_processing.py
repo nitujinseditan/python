@@ -19,7 +19,9 @@ print(test.strip("!"))#不会去除中间的
 
 #参数是字符集
 text = "www.pythonandc.com"
-print(text.strip("w.com")) # 会理解为删除两边的w,.,c,o,m,得到pythonand
+print(text.strip("w.com")) # 会理解为删除两边的w,.,c,o,m,得到pythonand，它不是“删除前缀 www. 和后缀 .com”
+
+#拓展：删除前缀后缀可以是removeprefix(),removesuffix(),这里的参数是字符串，核心是字符串完全匹配，不做展开说明
 
 #strip() 的亲戚 ：lstrip() rstrip() 处理左右
 print(test.lstrip("!"))
@@ -87,7 +89,35 @@ print(text.replace("jujube","Claire"))
 print(text.replace("loves","misses"))
 
 #用于删除，new = ""
+text = "Hello!!! Lucas???"
+text = text.replace("!", "").replace("?", "")
+print(text)
 
+#把一段杂乱输入清洗成关键词列表
+print_section("clean messy input to keywords")
+
+
+def clean_to_keywords(text):
+    text = text.strip()
+    text = text.lower()
+
+    text = text.replace("?", "")
+    text = text.replace("？", "")
+    text = text.replace("!", "")
+    text = text.replace("！", "")
+    text = text.replace(".", "")
+    text = text.replace("。", "")
+    text = text.replace(",", " ")
+    text = text.replace("，", " ")
+
+    keywords = text.split()
+    return keywords
+
+
+messy_text = "   I WANT to Study Python!!!  And, I love RAG？？？   "
+
+print("清洗前：", messy_text)
+print("关键词列表：", clean_to_keywords(messy_text))
 
 
 
