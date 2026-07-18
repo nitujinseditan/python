@@ -1,0 +1,39 @@
+{
+  "timezone": "Asia/Shanghai",
+  "learning_day_cutoff_hour": 2,
+  "learning_branch": "master",
+  "model": {
+    "base_url": "https://api.deepseek.com/chat/completions",
+    "name": "deepseek-v4-flash",
+    "thinking": "disabled",
+    "max_output_tokens": 2600
+  },
+  "artifact_retention_days": 30,
+  "max_diff_lines_per_file": 240,
+  "max_total_diff_lines": 1200,
+  "recent_commit_limit": 12,
+  "ignore_paths": [
+    ".git/",
+    ".github/",
+    "scripts/",
+    "prompts/",
+    "learning_context/",
+    "__pycache__/",
+    ".idea/",
+    ".learning-log-artifacts/"
+  ],
+  "sensitive_file_patterns": [
+    ".env",
+    ".pem",
+    ".key",
+    "credentials",
+    "secret"
+  ],
+  "project_contexts": [
+    {
+      "id": "intent-classifier",
+      "paths": ["day06/intent_classifier", "day06/day06_intent_classifier.py"],
+      "context_file": "learning_context/projects/intent_classifier.md"
+    }
+  ]
+}

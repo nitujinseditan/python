@@ -1,0 +1,19 @@
+{
+  "purpose": "这是一份可审核的长期学习地图。状态表示仓库中的学习痕迹，不等同于已完全掌握。",
+  "current_stage": "Python 基础与小项目实践",
+  "learning_goals": [
+    "完成 Python 基础学习，并保留可运行的练习和复盘记录。",
+    "将规则式意图分类器逐步演化为可维护的路由模块。",
+    "沿 77 天 Python 到 Agent 学习路线持续推进。"
+  ],
+  "topics": [
+    {"name": "变量、输入与类型转换", "status": "仓库中已出现", "evidence": ["day02", "day03"]},
+    {"name": "条件判断", "status": "仓库中已出现", "evidence": ["day04"]},
+    {"name": "字符串处理", "status": "仓库中已出现", "evidence": ["day05"]},
+    {"name": "列表", "status": "正在练习", "evidence": ["day01"]},
+    {"name": "函数与简单测试", "status": "仓库中已出现", "evidence": ["day06/intent_classifier"]},
+    {"name": "字典与 JSON", "status": "计划后续学习", "evidence": ["day06 项目后续优化路线"]},
+    {"name": "异常处理", "status": "计划后续学习", "evidence": ["agent-python-roadmap"]},
+    {"name": "正则表达式", "status": "计划后续学习", "evidence": ["day06 项目后续优化路线"]}
+  ]
+}

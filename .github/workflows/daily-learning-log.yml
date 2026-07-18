@@ -1,0 +1,52 @@
+name: Daily learning log draft
+
+on:
+  schedule:
+    # GitHub Actions cron uses UTC. 18:00 UTC is 02:00 the following day in Asia/Shanghai.
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+    inputs:
+      learning_date:
+        description: "学习窗口的开始日期（YYYY-MM-DD，窗口为该日 02:00 到次日 02:00）"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-learning-log-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out complete history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build review artifact
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        shell: bash
+        run: |
+          arguments=(--output daily-learning-log-artifact)
+          if [ -n "${{ inputs.learning_date }}" ]; then
+            arguments+=(--learning-date "${{ inputs.learning_date }}")
+          fi
+          python scripts/run_daily_learning_log.py "${arguments[@]}"
+
+      - name: Upload learning-log review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-learning-log-${{ github.run_id }}
+          path: daily-learning-log-artifact
+          retention-days: 30
+          if-no-files-found: error
