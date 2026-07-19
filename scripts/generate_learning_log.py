@@ -14,6 +14,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def empty_window_draft() -> dict:
+    """Do not ask a model to manufacture a daily story when the window has no activity."""
+    return {
+        "summary": "本学习窗口没有发现有效的已提交改动，因此不生成学习总结或新的待办建议。",
+        "new_learning": [],
+        "understood": [],
+        "unresolved": [],
+        "next_steps": {"must_do": [], "reinforcement": [], "project_revisit": []},
+        "tomorrow_suggestion": {"item": "无建议：请在下一次有实际学习提交后再生成复盘。", "evidence_ids": []},
+        "observations_to_confirm": [],
+        "context_update_proposal": {"learning_map": [], "project_notes": []},
+        "generation": {"mode": "skipped", "reason": "本学习窗口没有有效 Git 活动；静态 README 和项目档案不能作为当日学习证据。"},
+    }
+
+
 def fallback(bundle: dict, reason: str) -> dict:
     commits = bundle["evidence"]["git"]["commits"]
     files = bundle["evidence"]["git"]["changed_files"]
@@ -36,6 +51,8 @@ def fallback(bundle: dict, reason: str) -> dict:
 
 
 def call_model(bundle: dict, config: dict) -> dict:
+    if not bundle.get("activity_evidence_ids"):
+        return empty_window_draft()
     api_key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
     if not api_key:
         return fallback(bundle, "未设置 DEEPSEEK_API_KEY，已跳过模型总结。")

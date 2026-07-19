@@ -19,6 +19,8 @@ Secret: 你的 DeepSeek API Key
 
 未配置密钥时，工作流仍会完成：它会生成事实材料和基础日志，但跳过模型总结；Artifact 中会写明原因。
 
+若该学习窗口没有有效的已提交改动，工作流同样会跳过模型调用，只生成简短的空窗口记录。README、项目档案和学习地图仅作为长期背景，不能被写成“当天学习内容”。
+
 ## 手动运行
 
 在仓库的 **Actions → Daily learning log draft → Run workflow** 中：

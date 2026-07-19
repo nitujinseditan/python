@@ -25,6 +25,23 @@ def render_markdown(evidence: dict, draft: dict) -> str:
     window = evidence["window"]
     commits = evidence["git"]["commits"]
     files = evidence["git"]["changed_files"]
+    if draft.get("generation", {}).get("mode") == "skipped":
+        return "\n".join([
+            f"# {window['learning_date']} 学习日志（无有效活动）",
+            "",
+            f"学习窗口：{window['start']} 至 {window['end']}",
+            "",
+            "本学习窗口没有发现有效的已提交改动，因此没有调用模型，也不生成学习总结、待办或长期学习档案更新建议。",
+            "",
+            "README、项目档案和学习地图仅作为长期背景，不能被当作当天学习证据。",
+            "",
+            "## 事实记录",
+            "",
+            "- 已提交内容：无",
+            "- 变更文件：无",
+            "- 模型调用：跳过",
+            "",
+        ])
     next_steps = draft.get("next_steps", {})
     lines = [
         f"# {window['learning_date']} 学习日志（草稿）",
