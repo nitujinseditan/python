@@ -19,9 +19,9 @@ def contains_keyword(text, keywords):
 
 
 def classify_intent(text):
-    """根据关键词匹配返回意图类别：学习 / 查询 / 闲聊"""
+    """遍历 intent_keywords 字典，返回首个匹配的意图类别"""
     cleaned_text = clean_text(text)
     for intent, keywords in intent_keywords.items():
         if contains_keyword(cleaned_text, keywords):
             return intent
-    return "闲聊"
+    return "未知"
